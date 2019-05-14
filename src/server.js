@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+var sql = require('./db.js');
 
 var corsOptions = {
     origin: 'http://localhost:4200',
@@ -17,7 +18,19 @@ app.use(bodyParser.json())
 app.use(cors(corsOptions))
 
 app.route('/').get((req, res) => {
-    res.send({'res':'ohello World'})
+    // res.send({'res':'ohello World'})
+    sql.query("SELECT * FROM cats", function (err, cats) {
+
+        if(err) {
+            console.log("error: ", err);
+            result(null, err);
+        }
+        else{
+          console.log('cats : ', res);  
+
+          res.send({'res': cats})
+        }
+    });
 })
 
 app.route('/api/cats').post((req, res) => {
