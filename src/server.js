@@ -25,11 +25,11 @@ const authCheck = jwt({
             cache: true,
             rateLimit: true,
             jwksRequestsPerMinute: 5,
-            jwksUri: "https://{YOUR-AUTH0-DOMAIN}.auth0.com/.well-known/jwks.json"
+            jwksUri: "https://gkatsaros.auth0.com.auth0.com/.well-known/jwks.json"
         }),
         // This is the identifier we set when we created the API
-        audience: '{YOUR-API-AUDIENCE-ATTRIBUTE}',
-        issuer: "{YOUR-AUTH0-DOMAIN}", // e.g., you.auth0.com
+        audience: 'http://localhost:3001',
+        issuer: "gkatsaros.auth0.com", // e.g., you.auth0.com
         algorithms: ['RS256']
     });
 

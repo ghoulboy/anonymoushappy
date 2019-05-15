@@ -9,6 +9,7 @@ import { HomeComponent } from './components/home/home.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { AuthGuard } from './auth/auth.guard';
+import { CallbackComponent } from './components/callback/callback.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent},
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'stats', component: StatsComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },
+  { path: 'callback', component: CallbackComponent },
   { path: '',
     redirectTo: '/home',
     pathMatch: 'full'

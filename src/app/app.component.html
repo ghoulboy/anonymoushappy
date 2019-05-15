@@ -7,5 +7,16 @@
   <div *ngIf="authService.isLoggedIn">
     Check
   </div>
+  <div *ngIf="!authService.isLoggedIn">
+    Check
+  </div>
+  <button (click)="auth()">
+    checker
+  </button>
+
+  <div *ngIf="authService.userProfile">
+      {{ authService.userProfile.nickname }}
+  </div>
+  
 </div>
 

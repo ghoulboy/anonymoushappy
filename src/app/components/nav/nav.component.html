@@ -11,9 +11,10 @@
       <a class="nav-item nav-link" routerLink="/stats">Stats</a>
     </div>
     <div class="navbar-nav ml-auto">
-      <a class="nav-link active" data-toggle="modal" data-target="#signUpModal">Sign Up</a>
-      <a *ngIf="!authService.isLoggedIn" (click)="authService.login()" class="nav-link" data-toggle="modal" data-target="#signInModal">Sign In</a>
-      <a *ngIf="authService.isLoggedIn" class="nav-link" data-toggle="modal" data-target="#signInModal">Sign Out</a>
+      <a *ngIf="!authService.isLoggedIn" (click)="authService.login()" class="nav-link active" data-toggle="modal" data-target="#signUpModal">Sign Up</a>     
+      <a *ngIf="!authService.isLoggedIn" (click)="authService.login()" class="nav-link">Sign In</a>
+      <span *ngIf="authService.isLoggedIn" class="nav-link active">Welcome {{ authService.userProfile.nickname }}</span>
+      <a *ngIf="authService.isLoggedIn" (click)="authService.logout()" class="nav-link">Sign Out</a>
     </div>
   </div>
 </nav>

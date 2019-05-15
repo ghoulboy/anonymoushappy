@@ -9,4 +9,8 @@ import { AuthService } from './services/auth/auth.service';
 export class AppComponent {
   constructor(public authService: AuthService) { }
   title = 'anonymoushappy';
+
+  auth() {
+    console.log(this.authService.getAccessToken());
+  }
 }
