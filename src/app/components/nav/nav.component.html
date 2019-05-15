@@ -1,20 +1,19 @@
-<div class="container">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light w-100">
-    <a class="navbar-brand" routerLink="/home">AH</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link active" routerLink="/how-it-works">How it Works</a>
-        <a class="nav-item nav-link" routerLink="/recipient">Become A Recipient</a>
-        <a class="nav-item nav-link" routerLink="/writer">Become A Writer</a>
-        <a class="nav-item nav-link" routerLink="/stats">Stats</a>
-      </div>
-      <div class="navbar-nav ml-auto">
-        <a class="nav-link active" routerLink="/sign-up">Sign Up</a>
-        <a class="nav-link" routerLink="/sign-in">Sign In</a>
-      </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light w-100">
+  <a class="navbar-brand" routerLink="/home">AH</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" routerLink="/how-it-works">How it Works</a>
+      <a class="nav-item nav-link" routerLink="/recipient">Become A Recipient</a>
+      <a class="nav-item nav-link" routerLink="/writer">Become A Writer</a>
+      <a class="nav-item nav-link" routerLink="/stats">Stats</a>
     </div>
-  </nav>
-</div>
+    <div class="navbar-nav ml-auto">
+      <a class="nav-link active" data-toggle="modal" data-target="#signUpModal">Sign Up</a>
+      <a *ngIf="!authService.isLoggedIn" (click)="authService.login()" class="nav-link" data-toggle="modal" data-target="#signInModal">Sign In</a>
+      <a *ngIf="authService.isLoggedIn" class="nav-link" data-toggle="modal" data-target="#signInModal">Sign Out</a>
+    </div>
+  </div>
+</nav>

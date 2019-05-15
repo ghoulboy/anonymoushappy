@@ -17,6 +17,10 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ModalComponent } from './components/modal/modal.component';
+import { AuthService } from './services/auth/auth.service';
+import { CallbackComponent } from './components/callback/callback.component';
+import { AuthGuard } from './auth/auth.guard';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,9 @@ import { HttpClientModule } from '@angular/common/http';
     PageNotFoundComponent,
     HomeComponent,
     SignUpComponent,
-    SignInComponent
+    SignInComponent,
+    ModalComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +49,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatListModule,
     HttpClientModule
   ],
-  providers: [CatService],
+  providers: [CatService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

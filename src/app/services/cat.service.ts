@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders, HttpErrorResponse  } from '@angular/common/http'
+import { AuthService } from './auth/auth.service';
 
 interface Cat {
   name: string
@@ -8,14 +9,19 @@ interface Cat {
 
 @Injectable()
 export class CatService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+    ) {}
 
   getAllCats(): Observable<Cat[]> {
     return this.http.get<Cat[]>('http://localhost:8000/api/cats')
   }
 
   getHW(): Observable<string> {
-    return this.http.get<string>('http://localhost:8000/')
+    return this.http.get<string>('http://localhost:8000/', {
+      headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+    })   
   }
 
   getCat(name: string): Observable<Cat> {

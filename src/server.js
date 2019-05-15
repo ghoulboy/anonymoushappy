@@ -1,7 +1,10 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-var sql = require('./db.js');
+const sql = require('./db.js');
+const jwt = require('express-jwt');
+const jwks = require('jwks-rsa');
+
 
 var corsOptions = {
     origin: 'http://localhost:4200',
@@ -17,7 +20,20 @@ app.listen(8000, () => {
 app.use(bodyParser.json())
 app.use(cors(corsOptions))
 
-app.route('/').get((req, res) => {
+const authCheck = jwt({
+    secret: jwks.expressJwtSecret({
+            cache: true,
+            rateLimit: true,
+            jwksRequestsPerMinute: 5,
+            jwksUri: "https://{YOUR-AUTH0-DOMAIN}.auth0.com/.well-known/jwks.json"
+        }),
+        // This is the identifier we set when we created the API
+        audience: '{YOUR-API-AUDIENCE-ATTRIBUTE}',
+        issuer: "{YOUR-AUTH0-DOMAIN}", // e.g., you.auth0.com
+        algorithms: ['RS256']
+    });
+
+app.get('/', authCheck, (req, res) => {
     // res.send({'res':'ohello World'})
     sql.query("SELECT * FROM cats", function (err, cats) {
 
@@ -27,7 +43,6 @@ app.route('/').get((req, res) => {
         }
         else{
           console.log('cats : ', res);  
-
           res.send({'res': cats})
         }
     });

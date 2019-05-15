@@ -1,3 +1,11 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<app-nav></app-nav>
-<router-outlet></router-outlet>
+<div class="container">
+  <app-nav></app-nav>
+  <app-modal></app-modal>
+  <!-- <app-modal></app-modal> -->
+  <router-outlet></router-outlet>  
+  <div *ngIf="authService.isLoggedIn">
+    Check
+  </div>
+</div>
+

@@ -8,11 +8,16 @@ import { StatsComponent } from './components/stats/stats.component';
 import { HomeComponent } from './components/home/home.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'how-it-works', component: HowItWorksComponent },
-  { path: 'recipient', component: RecipientComponent },
+  { path: 'recipient', 
+    component: RecipientComponent,
+    canActivate: [
+      AuthGuard
+    ]},
   { path: 'writer', component: WriterComponent },
   { path: 'stats', component: StatsComponent },
   { path: 'sign-in', component: SignInComponent },
