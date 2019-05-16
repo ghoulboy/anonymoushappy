@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import * as auth0 from 'auth0-js';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
+import { UserService } from '../user/user.service';
+import { Subject } from 'rxjs';
 
 (window as any).global = window;
 
@@ -19,11 +21,14 @@ export class AuthService {
   });
   // Store authentication data
   expiresAt: number;
-  userProfile: any;
+  userProfile = new Subject<any>();
   accessToken: string;
   authenticated: boolean;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router, 
+    private userService: UserService)
+    {
     this.getAccessToken();
   }
 
@@ -38,6 +43,14 @@ export class AuthService {
       if (authResult && authResult.accessToken) {
         window.location.hash = '';
         this.getUserInfo(authResult);
+
+        this.userProfile.subscribe(x => {
+          this.userService.checkUser(x.email, this.accessToken).subscribe( (x:any) => {
+            if (x.res.length == 0) {
+              this.userService.createUser("gkatsaros16@gmail.com", this.accessToken).subscribe();
+            }
+          });
+        });
       } else if (err) {
         console.error(`Error: ${err.error}`);
       }
@@ -66,7 +79,7 @@ export class AuthService {
     // Save authentication data and update login status subject
     this.expiresAt = authResult.expiresIn * 1000 + Date.now();
     this.accessToken = authResult.accessToken;
-    this.userProfile = profile;
+    this.userProfile.next(profile);
     this.authenticated = true;
   }
 

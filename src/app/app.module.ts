@@ -19,6 +19,7 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './components/modal/modal.component';
 import { AuthService } from './services/auth/auth.service';
+import { UserService } from './services/user/user.service';
 import { CallbackComponent } from './components/callback/callback.component';
 import { AuthGuard } from './auth/auth.guard';
 
@@ -49,7 +50,7 @@ import { AuthGuard } from './auth/auth.guard';
     MatListModule,
     HttpClientModule
   ],
-  providers: [CatService, AuthService, AuthGuard],
+  providers: [CatService, AuthService, AuthGuard, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

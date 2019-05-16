@@ -25,7 +25,7 @@ const authCheck = jwt({
             cache: true,
             rateLimit: true,
             jwksRequestsPerMinute: 5,
-            jwksUri: "https://gkatsaros.auth0.com.auth0.com/.well-known/jwks.json"
+            jwksUri: "https://gkatsaros.auth0.com/.well-known/jwks.json"
         }),
         // This is the identifier we set when we created the API
         audience: 'http://localhost:3001',
@@ -33,7 +33,8 @@ const authCheck = jwt({
         algorithms: ['RS256']
     });
 
-app.get('/', authCheck, (req, res) => {
+// app.get('/', authCheck, (req, res) => {
+app.get('/', (req, res) => {
     // res.send({'res':'ohello World'})
     sql.query("SELECT * FROM cats", function (err, cats) {
 
@@ -52,8 +53,29 @@ app.route('/api/cats').post((req, res) => {
     res.send(201, req.body)
 })
 
-app.route('/api/cats/:name').put((req, res) => {
-    res.send(200, req.body)
+app.get('/api/checkUser/:email', (req, res) => {
+    sql.query(`SELECT * FROM users WHERE email = "${req.params.email}"`, function (err, cats) {
+        if(err) {
+            console.log("error: ", err);
+            result(null, err);
+        }
+        else{
+          res.send({'res': cats})
+        }
+    });
+})
+
+app.post('/api/createUser', (req, res) => {
+    var email = JSON.stringify(req.body.email)
+    sql.query(`INSERT INTO users (email) VALUES ("${req.body.email}")`, function (err, cats) {
+        if(err) {
+            console.log("error: ", err);
+            result(null, err);
+        }
+        else{
+          res.send({'res': cats})
+        }
+    });
 })
 
 app.route('/api/cats/:name').delete((req, res) => {
